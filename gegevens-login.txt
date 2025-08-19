@@ -1,0 +1,5 @@
+Rol			Gebruikersnaam		Wachtwoord
+Super-Admin		admin			superadmin
+Admin			organisatie-admin	password
+Coördinator		coordinator		password
+Leerling		leerling		password

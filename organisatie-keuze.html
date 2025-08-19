@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kies Organisatie</title>
+    <title>Inloggen</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="login-body">
     <div class="login-container">
-        <h2 class="login-title">Kies je Organisatie</h2>
-        <div id="org-list" class="org-list-container">
-            <a href="leerling-dashboard.html" class="org-card">
-                <h3>Organisatie A</h3>
-                <p>Leerling</p>
-            </a>
-            <a href="coordinator-dashboard.html" class="org-card">
-                <h3>Organisatie B</h3>
-                <p>Coördinator</p>
-            </a>
-        </div>
-        <a href="index.html" class="btn btn-secondary">Uitloggen</a>
+        <h1 class="login-title">Inloggen</h1>
+        <form id="login-form" class="login-form">
+            <div class="form-group">
+                <label for="username">Gebruikersnaam:</label>
+                <input type="text" id="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Wachtwoord:</label>
+                <input type="password" id="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Log in</button>
+        </form>
     </div>
-    <script src="organisatie-keuze-script.js"></script>
+    <script src="login-script.js"></script>
 </body>
 </html>
