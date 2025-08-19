@@ -6,6 +6,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const addBtn = document.getElementById('add-user-btn');
     const closeBtn = document.querySelector('#add-user-modal .close-btn');
 
+    // Nieuwe elementen voor CSV-import
+    const importCsvBtn = document.getElementById('import-csv-btn');
+    const csvFileInput = document.getElementById('csv-file-input');
+
     // Navigatie functionaliteit
     navLinks.forEach(link => {
         link.addEventListener('click', function(event) {
@@ -19,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (section.id === targetSectionId) {
                     section.classList.remove('hidden');
                     section.classList.add('active');
-                    // Speciale actie voor de analytics sectie
                     if (targetSectionId === 'analytics') {
                         renderAnalytics();
                     }
@@ -48,6 +51,24 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('click', (event) => {
         if (event.target == addModal) {
             addModal.style.display = 'none';
+        }
+    });
+
+    // Functionaliteit voor CSV-import
+    importCsvBtn.addEventListener('click', () => {
+        // Activeer het verborgen bestandskiezer-element
+        csvFileInput.click();
+    });
+
+    csvFileInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            // Dit is de gesimuleerde stap voor de front-end.
+            // In de backend-fase zou je dit bestand naar de server sturen.
+            alert(`Bestand "${file.name}" is geselecteerd voor import. De backend zal dit nu verwerken.`);
+            
+            // Optioneel: reset de input om hetzelfde bestand opnieuw te kunnen kiezen
+            event.target.value = '';
         }
     });
 
@@ -88,7 +109,6 @@ document.addEventListener('DOMContentLoaded', function() {
             { name: 'Zorg & Welzijn', enrollments: 55 },
         ];
         
-        // Render de projecten-grafiek
         const projectChart = document.getElementById('project-popularity-chart');
         projectChart.innerHTML = '';
         const maxProjectEnrollment = Math.max(...projectData.map(item => item.enrollments));
@@ -100,7 +120,6 @@ document.addEventListener('DOMContentLoaded', function() {
             projectChart.appendChild(bar);
         });
 
-        // Render de afdelingen-grafiek
         const departmentChart = document.getElementById('department-enrollment-chart');
         departmentChart.innerHTML = '';
         const maxDepartmentEnrollment = Math.max(...departmentData.map(item => item.enrollments));
@@ -113,6 +132,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Laad de gebruikers bij het laden van de pagina
     loadOnlineUsers();
 });
