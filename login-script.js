@@ -1,36 +1,22 @@
-document.getElementById('login-form').addEventListener('submit', function(event) {
-    event.preventDefault();
+document.addEventListener('DOMContentLoaded', function() {
+    const loginForm = document.getElementById('login-form');
 
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
+    loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
 
-    const users = {
-        'admin': { password: 'superadmin', role: 'super-admin' },
-        'organisatie-admin': { password: 'password', role: 'admin' },
-        'coordinator': { password: 'password', role: 'coordinator' },
-        'leerling': { password: 'password', role: 'leerling' }
-    };
-
-    if (users[username] && users[username].password === password) {
-        const userRole = users[username].role;
-
-        switch (userRole) {
-            case 'super-admin':
-                window.location.href = 'super-admin-dashboard.html';
-                break;
-            case 'admin':
-                window.location.href = 'admin-dashboard.html';
-                break;
-            case 'coordinator':
-                window.location.href = 'coordinator-dashboard.html';
-                break;
-            case 'leerling':
-                window.location.href = 'leerling-dashboard.html';
-                break;
-            default:
-                alert('Onbekende rol.');
+        // Simuleer inloggen op basis van gebruikersnaam en wachtwoord
+        if (username === 'superadmin' && password === 'admin123') {
+            window.location.href = 'super-admin-dashboard.html';
+        } else if (username === 'admin' && password === 'admin123') {
+            window.location.href = 'admin-dashboard.html';
+        } else if (username === 'coordinator' && password === 'coord123') {
+            window.location.href = 'coordinator-dashboard.html';
+        } else if (username === 'leerling' && password === 'leerling123') {
+            window.location.href = 'leerling-dashboard.html';
+        } else {
+            alert('Foutieve gebruikersnaam of wachtwoord. Probeer het opnieuw.');
         }
-    } else {
-        alert('Ongeldige gebruikersnaam of wachtwoord.');
-    }
+    });
 });

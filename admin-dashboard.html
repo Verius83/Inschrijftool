@@ -9,35 +9,75 @@
 <body>
     <header class="main-header">
         <nav class="main-nav">
-            <h1 class="logo">Admin Paneel</h1>
+            <h1 class="logo">Jouw Website</h1>
             <ul>
-                <li><a href="#" class="active" data-section="user-management">Gebruikersbeheer</a></li>
+                <li><a href="#" class="active" data-section="dashboard-overview">Dashboard</a></li>
+                <li><a href="#" data-section="user-management">Gebruikersbeheer</a></li>
                 <li><a href="#" data-section="project-management">Projectbeheer</a></li>
-                <li><a href="#" data-section="reports-analytics">Rapporten & Analyse</a></li>
-                <li><a href="#" data-section="online-users">Realtime Gebruikers</a></li>
-                <li><a href="#" data-section="integrations">Integraties</a></li>
+                <li><a href="#" data-section="analytics">Rapportages</a></li>
                 <li><a href="#" id="logout-btn">Uitloggen</a></li>
             </ul>
         </nav>
     </header>
 
     <main class="dashboard-container">
-        <section id="user-management" class="dashboard-section active">
+        <section id="dashboard-overview" class="dashboard-section active">
+            <h2>Dashboard Overzicht</h2>
+            <p>Welkom, Admin!</p>
+            <div class="summary-cards">
+                <div class="card">
+                    <h3>Totale Gebruikers</h3>
+                    <p id="total-users">250</p>
+                </div>
+                <div class="card">
+                    <h3>Actieve Projecten</h3>
+                    <p id="active-projects">15</p>
+                </div>
+                <div class="card">
+                    <h3>Nieuwe Inschrijvingen</h3>
+                    <p id="new-enrollments">42</p>
+                </div>
+            </div>
+            <div class="real-time-users">
+                <h3>Realtime Gebruikers</h3>
+                <table id="online-users-table" class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Naam</th>
+                            <th>Rol</th>
+                            <th>Laatste Login</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="user-management" class="dashboard-section hidden">
             <h2>Gebruikersbeheer</h2>
             <div class="action-bar">
-                <button id="add-user-btn" class="btn btn-primary">Gebruiker Toevoegen</button>
-                <button id="undo-user-btn" class="btn btn-secondary hidden">Ongedaan maken</button>
+                <button class="btn btn-primary" id="add-user-btn">Gebruiker Toevoegen</button>
             </div>
             <table class="data-table">
                 <thead>
                     <tr>
                         <th>Naam</th>
                         <th>Rol</th>
-                        <th>Laatst ingelogd</th>
                         <th>Acties</th>
                     </tr>
                 </thead>
-                <tbody id="user-table-body">
+                <tbody>
+                    <tr>
+                        <td>Leerling 1</td>
+                        <td>Leerling</td>
+                        <td><button class="btn btn-secondary">Bewerk</button> <button class="btn btn-secondary">Verwijder</button></td>
+                    </tr>
+                    <tr>
+                        <td>Coördinator 1</td>
+                        <td>Coördinator</td>
+                        <td><button class="btn btn-secondary">Bewerk</button> <button class="btn btn-secondary">Verwijder</button></td>
+                    </tr>
                 </tbody>
             </table>
         </section>
@@ -45,120 +85,64 @@
         <section id="project-management" class="dashboard-section hidden">
             <h2>Projectbeheer</h2>
             <div class="action-bar">
-                <button id="add-project-btn" class="btn btn-primary">Project Toevoegen</button>
-                <button id="undo-project-btn" class="btn btn-secondary hidden">Ongedaan maken</button>
+                <button class="btn btn-primary" id="add-project-btn">Project Toevoegen</button>
             </div>
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th>Naam Project</th>
-                        <th>Coördinator</th>
-                        <th>Afdelingen</th>
+                        <th>Projectnaam</th>
+                        <th>Aantal Inschrijvingen</th>
+                        <th>Status</th>
                         <th>Acties</th>
                     </tr>
                 </thead>
-                <tbody id="project-table-body">
+                <tbody>
+                    <tr>
+                        <td>Project A</td>
+                        <td>25/30</td>
+                        <td>Actief</td>
+                        <td><button class="btn btn-secondary">Bewerk</button> <button class="btn btn-secondary">Stop</button></td>
+                    </tr>
                 </tbody>
             </table>
         </section>
         
-        <section id="reports-analytics" class="dashboard-section hidden">
-            <h2>Rapporten en Analyse</h2>
-            <div class="reports-container">
-                <div class="report-card">
-                    <h4>Activiteitspopulariteit</h4>
-                    <p>Hier komt een grafiek of tabel met de populairste activiteiten.</p>
-                </div>
-                <div class="report-card">
-                    <h4>Inschrijvingen per periode</h4>
-                    <p>Hier komt een grafiek met het aantal inschrijvingen over de tijd.</p>
-                </div>
-                <div class="report-card">
-                    <h4>Leerling Portfolio Overzicht</h4>
-                    <p>Hier kan een overzicht van vaardigheden en portfolio's van alle leerlingen worden gegenereerd.</p>
-                </div>
+        <section id="analytics" class="dashboard-section hidden">
+            <h2>Rapportages & Analytics</h2>
+            <div class="chart-container">
+                <h3>Inschrijvingen per Project</h3>
+                <div id="project-popularity-chart" class="bar-chart">
+                    </div>
             </div>
-        </section>
-
-        <section id="online-users" class="dashboard-section hidden">
-            <h2>Online Gebruikers</h2>
-            <div class="realtime-info">
-                <p>Totaal aantal gebruikers online: <span id="online-count">0</span></p>
-            </div>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Naam</th>
-                        <th>Rol</th>
-                        <th>Laatst ingelogd</th>
-                    </tr>
-                </thead>
-                <tbody id="online-users-body">
-                </tbody>
-            </table>
-        </section>
-
-        <section id="integrations" class="dashboard-section hidden">
-            <h2>Integraties</h2>
-            <div class="integrations-container">
-                <div class="integration-card">
-                    <h3>Schooladministratie</h3>
-                    <p>Synchroniseer gebruikersgegevens en klassen automatisch met externe systemen.</p>
-                    <button class="btn">Synchroniseer nu</button>
-                </div>
+            <div class="chart-container">
+                <h3>Inschrijvingen per Afdeling</h3>
+                <div id="department-enrollment-chart" class="bar-chart">
+                    </div>
             </div>
         </section>
     </main>
 
-    <div id="user-modal" class="modal">
+    <div id="add-user-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
-            <h3>Gebruiker Toevoegen/Bewerken</h3>
-            <form id="user-form">
+            <h3>Nieuwe Gebruiker Toevoegen</h3>
+            <form id="add-user-form">
                 <div class="form-group">
-                    <label for="user-name">Naam:</label>
-                    <input type="text" id="user-name" required>
+                    <label for="new-username">Gebruikersnaam:</label>
+                    <input type="text" id="new-username" required>
                 </div>
                 <div class="form-group">
-                    <label for="user-role">Rol:</label>
-                    <select id="user-role" required>
+                    <label for="new-user-role">Rol:</label>
+                    <select id="new-user-role" required>
                         <option value="leerling">Leerling</option>
                         <option value="coordinator">Coördinator</option>
                         <option value="admin">Admin</option>
                     </select>
                 </div>
-                <button type="submit" class="btn">Opslaan</button>
+                <button type="submit" class="btn btn-primary">Toevoegen</button>
             </form>
         </div>
     </div>
-    
-    <div id="project-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h3>Project Toevoegen/Bewerken</h3>
-            <form id="project-form">
-                <div class="form-group">
-                    <label for="project-name">Projectnaam:</label>
-                    <input type="text" id="project-name" required>
-                </div>
-                <div class="form-group">
-                    <label for="project-coordinator">Coördinator toewijzen:</label>
-                    <select id="project-coordinator" required>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="project-department">Afdelingen:</label>
-                    <input type="text" id="project-department" placeholder="Bijv. Klas A, Klas B" required>
-                </div>
-                <button type="submit" class="btn">Opslaan</button>
-            </form>
-        </div>
-    </div>
-
-    <footer>
-        <p>&copy; 2025 Jouw Website. Alle rechten voorbehouden.</p>
-    </footer>
-
     <script src="admin-script.js"></script>
 </body>
 </html>
