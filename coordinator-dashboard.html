@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coördinator Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="main-header">
+        <nav class="main-nav">
+            <h1 class="logo">Dashboard</h1>
+            <ul>
+                <li><a href="#" class="active" data-section="activities">Activiteiten Beheren</a></li>
+                <li><a href="#" data-section="registrations">Inschrijvingen Beheren</a></li>
+                <li><a href="#" data-section="evaluations">Evaluaties</a></li>
+                <li><a href="#" data-section="logbook">Logboek</a></li>
+                <li><a href="#" id="logout-btn">Uitloggen</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="dashboard-container">
+        <section id="activities" class="dashboard-section active">
+            <h2>Activiteiten Beheren</h2>
+            <div class="action-bar">
+                <button id="add-activity-btn" class="btn">Activiteit Toevoegen</button>
+                <button id="send-reminders-btn" class="btn">Herinneringen versturen</button>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Naam</th>
+                        <th>Datum</th>
+                        <th>Locatie</th>
+                        <th>Acties</th>
+                    </tr>
+                </thead>
+                <tbody id="activities-table-body">
+                </tbody>
+            </table>
+        </section>
+
+        <section id="registrations" class="dashboard-section hidden">
+            <h2>Inschrijvingen Beheren</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Leerling</th>
+                        <th>Activiteit</th>
+                        <th>Status</th>
+                        <th>Acties</th>
+                    </tr>
+                </thead>
+                <tbody id="registrations-table-body">
+                </tbody>
+            </table>
+        </section>
+
+        <section id="evaluations" class="dashboard-section hidden">
+            <h2>Feedback & Evaluaties</h2>
+            <div class="evaluations-container">
+                <p>Hier komt de feedback van leerlingen over voltooide activiteiten.</p>
+            </div>
+        </section>
+
+        <section id="logbook" class="dashboard-section hidden">
+            <h2>Logboek</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Actie</th>
+                        <th>Door</th>
+                        <th>Datum</th>
+                    </tr>
+                </thead>
+                <tbody id="logbook-table-body">
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <div id="activity-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3>Activiteit Toevoegen/Bewerken</h3>
+            <form id="activity-form">
+                <div class="form-group">
+                    <label for="activity-name">Naam:</label>
+                    <input type="text" id="activity-name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="activity-date">Datum:</label>
+                    <input type="date" id="activity-date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="activity-location">Locatie:</label>
+                    <input type="text" id="activity-location" name="location" required>
+                </div>
+                <div class="form-group">
+                    <label for="max-participants">Max. aantal deelnemers:</label>
+                    <input type="number" id="max-participants" name="max-participants" min="1">
+                </div>
+                <div class="form-group">
+                    <label for="has-waitlist">Wachtlijst inschakelen:</label>
+                    <input type="checkbox" id="has-waitlist" name="has-waitlist">
+                </div>
+                <div class="form-group">
+                    <label for="activity-deadline">Deadline inschrijving:</label>
+                    <input type="date" id="activity-deadline" name="deadline">
+                </div>
+                <div class="form-group">
+                    <label for="lock-registration">Inschrijving op slot zetten:</label>
+                    <input type="checkbox" id="lock-registration" name="lock">
+                </div>
+                <button type="submit" class="btn">Opslaan</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="message-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3>Bericht aan Leerling</h3>
+            <form id="message-form">
+                <textarea id="message-text" rows="5" placeholder="Typ je bericht..."></textarea>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-approve" data-action="approve">Goedkeuren</button>
+                    <button type="button" class="btn btn-reject" data-action="reject">Afkeuren</button>
+                </div>
+                <div class="reason-select">
+                    <label for="rejection-reason">Selecteer reden voor afkeuring:</label>
+                    <select id="rejection-reason" name="rejection-reason">
+                        <option value="">Geen</option>
+                        <option value="vol">Activiteit is vol</option>
+                        <option value="voorwaarden">Voldoet niet aan de voorwaarden</option>
+                        <option value="dubbel">Dubbele inschrijving</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3>Project Toevoegen/Bewerken</h3>
+            <form id="project-form">
+                <div class="form-group">
+                    <label for="project-name">Projectnaam:</label>
+                    <input type="text" id="project-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="project-coordinator">Coördinator toewijzen:</label>
+                    <select id="project-coordinator" required>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="project-department">Afdelingen:</label>
+                    <input type="text" id="project-department" placeholder="Bijv. Klas A, Klas B" required>
+                </div>
+                <div class="form-group">
+                    <label for="max-registrations">Max. inschrijvingen per leerling:</label>
+                    <input type="number" id="max-registrations" min="1" required>
+                </div>
+                <button type="submit" class="btn">Opslaan</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Jouw Website. Alle rechten voorbehouden.</p>
+    </footer>
+
+    <script src="coordinator-script.js"></script>
+</body>
+</html>

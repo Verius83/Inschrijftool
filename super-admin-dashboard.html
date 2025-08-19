@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super-Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="main-header">
+        <nav class="main-nav">
+            <h1 class="logo">Super-Admin Paneel</h1>
+            <ul>
+                <li><a href="#" class="active">Nieuwe Organisatie</a></li>
+                <li><a href="#" id="logout-btn">Uitloggen</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="dashboard-container">
+        <section id="create-organization-section" class="dashboard-section active">
+            <h2>Nieuwe Organisatie Aanmaken</h2>
+            <form id="create-organization-form" class="dashboard-form">
+                <div class="form-group">
+                    <label for="org-name">Naam organisatie:</label>
+                    <input type="text" id="org-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="admin-email">E-mail van eerste beheerder:</label>
+                    <input type="email" id="admin-email" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Organisatie Aanmaken</button>
+            </form>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 Jouw Platform. Alle rechten voorbehouden.</p>
+    </footer>
+
+    <script src="super-admin-script.js"></script>
+</body>
+</html>

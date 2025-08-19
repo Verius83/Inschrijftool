@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Jouw Platform</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="contact-body">
+    <header class="homepage-header">
+        <nav class="homepage-nav">
+            <h1 class="logo">Jouw Platform</h1>
+            <ul>
+                <li><a href="homepage.html">Home</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="index.html" class="btn btn-login">Inloggen</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="contact-main">
+        <section class="contact-section">
+            <h2>Neem contact met ons op</h2>
+            <p>Heeft u vragen of wilt u meer weten over de mogelijkheden voor uw organisatie? Vul het onderstaande formulier in of neem direct contact met ons op via de onderstaande gegevens.</p>
+            <div class="contact-info">
+                <p><strong>E-mail:</strong> info@jouwplatform.nl</p>
+                <p><strong>Telefoon:</strong> +31 12 345 6789</p>
+                <p><strong>Adres:</strong> Voorbeeldstraat 1, 1234 AB Dummy-Stad</p>
+            </div>
+            <form id="contact-form" class="contact-form">
+                <div class="form-group">
+                    <label for="name">Naam:</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Bericht:</label>
+                    <textarea id="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Versturen</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Jouw Platform. Alle rechten voorbehouden.</p>
+    </footer>
+</body>
+</html>

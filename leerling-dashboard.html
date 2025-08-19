@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Leerling</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="main-header">
+        <nav class="main-nav">
+            <h1 class="logo">Jouw Website</h1>
+            <ul>
+                <li><a href="#" class="active" data-section="my-dashboard">Mijn Dashboard</a></li>
+                <li><a href="#" data-section="available-activities">Overzicht Activiteiten</a></li>
+                <li><a href="#" data-section="my-profile">Mijn Profiel</a></li>
+                <li><a href="#" data-section="my-calendar">Mijn Agenda</a></li>
+                <li><a href="#" data-section="my-badges">Mijn Badges</a></li>
+                <li><a href="#" data-section="settings">Instellingen</a></li>
+                <li><a href="#" id="logout-btn">Uitloggen</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="dashboard-container">
+        <section id="my-dashboard" class="dashboard-section active">
+            <div class="welcome-section">
+                <h2 id="welcome-message">Welkom, Leerling!</h2>
+                <p>Roostercode: <span id="roostercode">123456</span></p>
+            </div>
+            
+            <div class="activities-section">
+                <h3>Mijn Inschrijvingen</h3>
+                <div id="enrolled-activities" class="activity-list">
+                    <p>Nog geen inschrijvingen.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="available-activities" class="dashboard-section hidden">
+            <div class="activities-section">
+                <h3>Beschikbare Activiteiten</h3>
+                <div class="filter-sort-bar">
+                    <label for="filter-category">Filter:</label>
+                    <select id="filter-category">
+                        <option value="all">Alle</option>
+                        <option value="techniek">Techniek</option>
+                        <option value="sport">Sport</option>
+                    </select>
+                    <label for="sort-by">Sorteren:</label>
+                    <select id="sort-by">
+                        <option value="name">Naam</option>
+                        <option value="date">Datum</option>
+                    </select>
+                </div>
+                <div id="activity-list" class="activity-list">
+                </div>
+            </div>
+        </section>
+
+        <section id="my-profile" class="dashboard-section hidden">
+            <h2>Mijn Profiel</h2>
+            <div class="profile-display">
+                <p><strong>Naam:</strong> <span id="profile-name"></span></p>
+                <p><strong>Klas:</strong> <span id="profile-class"></span></p>
+                <h3>Portfolio</h3>
+                <ul id="profile-portfolio">
+                    <li>Vaardigheden: <span></span></li>
+                    <li>Certificaten: <span></span></li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="my-calendar" class="dashboard-section hidden">
+            <h2>Mijn Agenda</h2>
+            <div class="calendar-display">
+                <p>Hier komt de kalenderweergave van de ingeschreven activiteiten.</p>
+                <button class="btn">Exporteer naar kalender (.ics)</button>
+            </div>
+        </section>
+
+        <section id="my-badges" class="dashboard-section hidden">
+            <h2>Mijn Badges</h2>
+            <div class="badges-container">
+                <p>Hier worden de behaalde badges weergegeven.</p>
+                <div class="badge-item">
+                    <img src="https://via.placeholder.com/80" alt="Placeholder badge">
+                    <p>Eerste Inschrijving</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="settings" class="dashboard-section hidden">
+            <div class="settings-section">
+                <h2>Accountinstellingen</h2>
+                <form id="password-form">
+                    <h3>Wachtwoord wijzigen</h3>
+                    <div class="form-group">
+                        <label for="current-password">Huidig wachtwoord:</label>
+                        <input type="password" id="current-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-password">Nieuw wachtwoord:</label>
+                        <input type="password" id="new-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Bevestig nieuw wachtwoord:</label>
+                        <input type="password" id="confirm-password" required>
+                    </div>
+                    <button type="submit" class="btn">Wachtwoord wijzigen</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Jouw Website. Alle rechten voorbehouden.</p>
+    </footer>
+
+    <script src="leerling-script.js"></script>
+</body>
+</html>
