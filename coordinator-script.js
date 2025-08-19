@@ -7,6 +7,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const closeBtns = document.querySelectorAll('.close-btn');
     const activitiesTableBody = document.getElementById('activities-table-body');
     const undoActivityBtn = document.getElementById('undo-activity-btn');
+    
+    // Nieuwe elementen voor CSV-import
+    const importActivitiesBtn = document.getElementById('import-activities-btn');
+    const csvFileInput = document.getElementById('csv-file-input');
 
     let lastAddedActivity = null;
 
@@ -46,6 +50,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // Modal voor activiteit toevoegen
     addActivityBtn.addEventListener('click', () => {
         activityModal.style.display = 'flex';
+    });
+    
+    // Functie voor CSV-import
+    importActivitiesBtn.addEventListener('click', () => {
+        csvFileInput.click();
+    });
+
+    csvFileInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            alert(`Bestand "${file.name}" is geselecteerd voor import. De backend zal dit nu verwerken.`);
+            // In een echte applicatie zou je hier het bestand naar de server sturen
+            event.target.value = ''; // Reset de input om hetzelfde bestand opnieuw te kunnen kiezen
+        }
     });
     
     // Form submission voor activiteit
