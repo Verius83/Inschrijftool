@@ -5,146 +5,150 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header class="main-header">
         <nav class="main-nav">
-            <h1 class="logo">Jouw Website</h1>
+            <h1 class="logo">Admin</h1>
             <ul>
-                <li><a href="#" class="active" data-section="dashboard-overview">Dashboard</a></li>
-                <li><a href="#" data-section="user-management">Gebruikersbeheer</a></li>
-                <li><a href="#" data-section="project-management">Projectbeheer</a></li>
-                <li><a href="#" data-section="analytics">Rapportages</a></li>
+                <li><a href="#" class="active" data-section="projects">Projecten Beheren</a></li>
+                <li><a href="#" data-section="users">Gebruikers Beheren</a></li>
+                <li><a href="#" data-section="organization-data">Organisatiegegevens</a></li>
                 <li><a href="#" id="logout-btn">Uitloggen</a></li>
             </ul>
         </nav>
     </header>
 
     <main class="dashboard-container">
-        <section id="dashboard-overview" class="dashboard-section active">
-            <h2>Dashboard Overzicht</h2>
-            <p>Welkom, Admin!</p>
-            <div class="summary-cards">
-                <div class="card">
-                    <h3>Totale Gebruikers</h3>
-                    <p id="total-users">250</p>
-                </div>
-                <div class="card">
-                    <h3>Actieve Projecten</h3>
-                    <p id="active-projects">15</p>
-                </div>
-                <div class="card">
-                    <h3>Nieuwe Inschrijvingen</h3>
-                    <p id="new-enrollments">42</p>
-                </div>
-            </div>
-            <div class="real-time-users">
-                <h3>Realtime Gebruikers</h3>
-                <table id="online-users-table" class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Naam</th>
-                            <th>Rol</th>
-                            <th>Laatste Login</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        </tbody>
-                </table>
-            </div>
-        </section>
-
-        <section id="user-management" class="dashboard-section hidden">
-            <h2>Gebruikersbeheer</h2>
+        <section id="projects" class="dashboard-section active">
+            <h2>Projecten Beheren</h2>
             <div class="action-bar">
-                <button class="btn btn-primary" id="add-user-btn">Gebruiker Toevoegen</button>
-                <button class="btn btn-secondary" id="import-csv-btn">Gebruikers importeren (.csv)</button>
-            </div>
-            <input type="file" id="csv-file-input" accept=".csv" class="hidden">
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Naam</th>
-                        <th>Rol</th>
-                        <th>Acties</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Leerling 1</td>
-                        <td>Leerling</td>
-                        <td><button class="btn btn-secondary">Bewerk</button> <button class="btn btn-secondary">Verwijder</button></td>
-                    </tr>
-                    <tr>
-                        <td>Coördinator 1</td>
-                        <td>Coördinator</td>
-                        <td><button class="btn btn-secondary">Bewerk</button> <button class="btn btn-secondary">Verwijder</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-
-        <section id="project-management" class="dashboard-section hidden">
-            <h2>Projectbeheer</h2>
-            <div class="action-bar">
-                <button class="btn btn-primary" id="add-project-btn">Project Toevoegen</button>
+                <button id="add-project-btn" class="btn">Project Toevoegen</button>
             </div>
             <table class="data-table">
                 <thead>
                     <tr>
                         <th>Projectnaam</th>
-                        <th>Aantal Inschrijvingen</th>
-                        <th>Status</th>
+                        <th>Coördinator</th>
+                        <th>Afdelingen</th>
+                        <th>Max Inschrijvingen</th>
                         <th>Acties</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>Project A</td>
-                        <td>25/30</td>
-                        <td>Actief</td>
-                        <td><button class="btn btn-secondary">Bewerk</button> <button class="btn btn-secondary">Stop</button></td>
-                    </tr>
+                <tbody id="projects-table-body">
                 </tbody>
             </table>
         </section>
-        
-        <section id="analytics" class="dashboard-section hidden">
-            <h2>Rapportages & Analytics</h2>
-            <div class="chart-container">
-                <h3>Inschrijvingen per Project</h3>
-                <div id="project-popularity-chart" class="bar-chart">
-                    </div>
+
+        <section id="users" class="dashboard-section hidden">
+            <h2>Gebruikers Beheren</h2>
+            <div class="action-bar">
+                <button id="add-user-btn" class="btn">Gebruiker Toevoegen</button>
+                <button id="import-users-btn" class="btn btn-secondary">Gebruikers importeren (.csv)</button>
+                <input type="file" id="csv-file-input" accept=".csv" class="hidden">
             </div>
-            <div class="chart-container">
-                <h3>Inschrijvingen per Afdeling</h3>
-                <div id="department-enrollment-chart" class="bar-chart">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Gebruikersnaam</th>
+                        <th>Rol</th>
+                        <th>Acties</th>
+                    </tr>
+                </thead>
+                <tbody id="users-table-body">
+                </tbody>
+            </table>
+        </section>
+
+        <section id="organization-data" class="dashboard-section hidden">
+            <h2>Organisatiegegevens</h2>
+            <div class="details-card">
+                <h3>Mijn Organisatie</h3>
+                <form id="my-org-data-form">
+                    <div class="form-group">
+                        <label for="my-org-name">Naam:</label>
+                        <input type="text" id="my-org-name" readonly>
                     </div>
+                    <div class="form-group">
+                        <label for="my-org-contact-person">Contactpersoon:</label>
+                        <input type="text" id="my-org-contact-person">
+                    </div>
+                    <div class="form-group">
+                        <label for="my-org-phone">Telefoonnummer:</label>
+                        <input type="text" id="my-org-phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="my-org-address">Adres:</label>
+                        <input type="text" id="my-org-address">
+                    </div>
+                    <h4>Contract & Facturen</h4>
+                    <div class="form-group">
+                        <label for="my-org-contract-link">Contractbestand:</label>
+                        <a id="my-org-contract-link" href="#" target="_blank">Contract bekijken</a>
+                    </div>
+                    <div class="form-group">
+                        <label for="my-org-invoice-status">Laatste Factuurstatus:</label>
+                        <input type="text" id="my-org-invoice-status" readonly>
+                    </div>
+                    <button type="submit" id="save-my-org-data-btn" class="btn">Opslaan</button>
+                </form>
             </div>
         </section>
     </main>
 
-    <div id="add-user-modal" class="modal">
+    <div id="project-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
-            <h3>Nieuwe Gebruiker Toevoegen</h3>
-            <form id="add-user-form">
+            <h3>Project Toevoegen/Bewerken</h3>
+            <form id="project-form">
                 <div class="form-group">
-                    <label for="new-username">Gebruikersnaam:</label>
-                    <input type="text" id="new-username" required>
+                    <label for="project-name">Projectnaam:</label>
+                    <input type="text" id="project-name" required>
                 </div>
                 <div class="form-group">
-                    <label for="new-user-role">Rol:</label>
-                    <select id="new-user-role" required>
-                        <option value="leerling">Leerling</option>
-                        <option value="coordinator">Coördinator</option>
-                        <option value="admin">Admin</option>
+                    <label for="project-coordinator">Coördinator toewijzen:</label>
+                    <select id="project-coordinator" required>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary">Toevoegen</button>
+                <div class="form-group">
+                    <label for="project-department">Afdelingen:</label>
+                    <input type="text" id="project-department" placeholder="Bijv. Klas A, Klas B" required>
+                </div>
+                <div class="form-group">
+                    <label for="max-registrations">Max. inschrijvingen per leerling:</label>
+                    <input type="number" id="max-registrations" min="1" required>
+                </div>
+                <button type="submit" class="btn">Opslaan</button>
             </form>
         </div>
     </div>
+
+    <div id="user-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3>Gebruiker Toevoegen/Bewerken</h3>
+            <form id="user-form">
+                <div class="form-group">
+                    <label for="user-name">Naam:</label>
+                    <input type="text" id="user-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="user-role">Rol:</label>
+                    <select id="user-role" required>
+                        <option value="coordinator">Coördinator</option>
+                        <option value="student">Leerling</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn">Opslaan</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Jouw Website. Alle rechten voorbehouden.</p>
+    </footer>
+
     <script src="admin-script.js"></script>
 </body>
 </html>

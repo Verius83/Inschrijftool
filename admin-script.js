@@ -2,13 +2,94 @@ document.addEventListener('DOMContentLoaded', function() {
     const sections = document.querySelectorAll('.dashboard-section');
     const navLinks = document.querySelectorAll('.main-nav ul li a:not(#logout-btn)');
     const logoutBtn = document.getElementById('logout-btn');
-    const addModal = document.getElementById('add-user-modal');
-    const addBtn = document.getElementById('add-user-btn');
-    const closeBtn = document.querySelector('#add-user-modal .close-btn');
 
-    // Nieuwe elementen voor CSV-import
-    const importCsvBtn = document.getElementById('import-csv-btn');
+    const addProjectBtn = document.getElementById('add-project-btn');
+    const projectModal = document.getElementById('project-modal');
+    const projectForm = document.getElementById('project-form');
+
+    const addUserBtn = document.getElementById('add-user-btn');
+    const userModal = document.getElementById('user-modal');
+    const userForm = document.getElementById('user-form');
+    const importUsersBtn = document.getElementById('import-users-btn');
     const csvFileInput = document.getElementById('csv-file-input');
+    
+    // Nieuwe elementen voor organisatiegegevens van de Admin
+    const myOrgDataForm = document.getElementById('my-org-data-form');
+    const myOrgName = document.getElementById('my-org-name');
+    const myOrgContactPerson = document.getElementById('my-org-contact-person');
+    const myOrgPhone = document.getElementById('my-org-phone');
+    const myOrgAddress = document.getElementById('my-org-address');
+    const myOrgContractLink = document.getElementById('my-org-contract-link');
+    const myOrgInvoiceStatus = document.getElementById('my-org-invoice-status');
+
+    const closeBtns = document.querySelectorAll('.close-btn');
+    const projectsTableBody = document.getElementById('projects-table-body');
+    const usersTableBody = document.getElementById('users-table-body');
+
+    // Simuleer de data voor een specifieke organisatie
+    let projects = [
+        { id: 1, name: 'Project Groen', coordinator: 'Coordinator', departments: 'Klas 1A, Klas 1B', maxRegistrations: 3 }
+    ];
+
+    let users = [
+        { id: 1, username: 'coordinator', role: 'coordinator' },
+        { id: 2, username: 'student_x', role: 'student' }
+    ];
+
+    let myOrganization = {
+        name: 'Organisatie B',
+        contact: {
+            person: 'Piet Pietersen',
+            phone: '06-87654321',
+            address: 'Voorbeeldlaan 2, 5678 CD, Dorp'
+        },
+        contractFile: 'contract_org_b.pdf',
+        invoiceStatus: 'Openstaand'
+    };
+
+    function renderProjects() {
+        projectsTableBody.innerHTML = '';
+        projects.forEach(project => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${project.name}</td>
+                <td>${project.coordinator}</td>
+                <td>${project.departments}</td>
+                <td>${project.maxRegistrations}</td>
+                <td>
+                    <button class="btn btn-secondary edit-project-btn" data-id="${project.id}">Bewerk</button>
+                    <button class="btn btn-secondary delete-project-btn" data-id="${project.id}">Verwijder</button>
+                </td>
+            `;
+            projectsTableBody.appendChild(row);
+        });
+    }
+
+    function renderUsers() {
+        usersTableBody.innerHTML = '';
+        users.forEach(user => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${user.username}</td>
+                <td>${user.role}</td>
+                <td>
+                    <button class="btn btn-secondary edit-user-btn" data-id="${user.id}">Bewerk</button>
+                    <button class="btn btn-secondary delete-user-btn" data-id="${user.id}">Verwijder</button>
+                </td>
+            `;
+            usersTableBody.appendChild(row);
+        });
+    }
+
+    // Organisatiegegevens renderen
+    function renderMyOrgData() {
+        myOrgName.value = myOrganization.name;
+        myOrgContactPerson.value = myOrganization.contact.person;
+        myOrgPhone.value = myOrganization.contact.phone;
+        myOrgAddress.value = myOrganization.contact.address;
+        myOrgContractLink.href = myOrganization.contractFile; // Dit moet later naar de backend wijzen
+        myOrgInvoiceStatus.value = myOrganization.invoiceStatus;
+    }
 
     // Navigatie functionaliteit
     navLinks.forEach(link => {
@@ -23,9 +104,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (section.id === targetSectionId) {
                     section.classList.remove('hidden');
                     section.classList.add('active');
-                    if (targetSectionId === 'analytics') {
-                        renderAnalytics();
-                    }
                 } else {
                     section.classList.remove('active');
                     section.classList.add('hidden');
@@ -39,98 +117,37 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = 'index.html';
     });
 
-    // Modal functionaliteit
-    addBtn.addEventListener('click', () => {
-        addModal.style.display = 'flex';
-    });
-
-    closeBtn.addEventListener('click', () => {
-        addModal.style.display = 'none';
-    });
-
-    window.addEventListener('click', (event) => {
-        if (event.target == addModal) {
-            addModal.style.display = 'none';
-        }
-    });
-
-    // Functionaliteit voor CSV-import
-    importCsvBtn.addEventListener('click', () => {
-        // Activeer het verborgen bestandskiezer-element
-        csvFileInput.click();
-    });
-
-    csvFileInput.addEventListener('change', (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            // Dit is de gesimuleerde stap voor de front-end.
-            // In de backend-fase zou je dit bestand naar de server sturen.
-            alert(`Bestand "${file.name}" is geselecteerd voor import. De backend zal dit nu verwerken.`);
-            
-            // Optioneel: reset de input om hetzelfde bestand opnieuw te kunnen kiezen
-            event.target.value = '';
-        }
-    });
-
-    // Simuleer een lijst van online gebruikers
-    function loadOnlineUsers() {
-        const users = [
-            { name: 'Jan Jansen', role: 'Leerling', lastLogin: '19-08-2025 20:30' },
-            { name: 'Marieke de Vries', role: 'Coördinator', lastLogin: '19-08-2025 20:35' },
-            { name: 'Piet Pietersen', role: 'Leerling', lastLogin: '19-08-2025 20:38' },
-        ];
-        
-        const tableBody = document.querySelector('#online-users-table tbody');
-        tableBody.innerHTML = '';
-        
-        users.forEach(user => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${user.name}</td>
-                <td>${user.role}</td>
-                <td>${user.lastLogin}</td>
-            `;
-            tableBody.appendChild(row);
+    // Modals sluiten
+    closeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            btn.closest('.modal').style.display = 'none';
         });
-    }
+    });
 
-    // Functie voor de geavanceerde analytics
-    function renderAnalytics() {
-        const projectData = [
-            { name: 'Workshop Robotica', enrollments: 45 },
-            { name: 'Debatclub', enrollments: 32 },
-            { name: 'Digitale Kunst', enrollments: 58 },
-            { name: 'Schaken voor Beginners', enrollments: 20 },
-        ];
-        
-        const departmentData = [
-            { name: 'Techniek', enrollments: 80 },
-            { name: 'Economie', enrollments: 65 },
-            { name: 'Zorg & Welzijn', enrollments: 55 },
-        ];
-        
-        const projectChart = document.getElementById('project-popularity-chart');
-        projectChart.innerHTML = '';
-        const maxProjectEnrollment = Math.max(...projectData.map(item => item.enrollments));
-        projectData.forEach(item => {
-            const bar = document.createElement('div');
-            bar.classList.add('bar-item');
-            bar.style.width = `${(item.enrollments / maxProjectEnrollment) * 100}%`;
-            bar.innerHTML = `<span>${item.name} (${item.enrollments})</span>`;
-            projectChart.appendChild(bar);
-        });
+    // Modals openen
+    addProjectBtn.addEventListener('click', () => projectModal.style.display = 'flex');
+    addUserBtn.addEventListener('click', () => userModal.style.display = 'flex');
+    importUsersBtn.addEventListener('click', () => csvFileInput.click());
 
-        const departmentChart = document.getElementById('department-enrollment-chart');
-        departmentChart.innerHTML = '';
-        const maxDepartmentEnrollment = Math.max(...departmentData.map(item => item.enrollments));
-        departmentData.forEach(item => {
-            const bar = document.createElement('div');
-            bar.classList.add('bar-item');
-            bar.style.width = `${(item.enrollments / maxDepartmentEnrollment) * 100}%`;
-            bar.innerHTML = `<span>${item.name} (${item.enrollments})</span>`;
-            departmentChart.appendChild(bar);
-        });
-    }
+    // Form submissions
+    projectForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // Logica voor het toevoegen van een project
+    });
 
-    loadOnlineUsers();
+    userForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // Logica voor het toevoegen van een gebruiker
+    });
+
+    myOrgDataForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // Logica om organisatiegegevens bij te werken
+        alert('Gegevens zijn opgeslagen!');
+    });
+
+    // Render de initiële data
+    renderProjects();
+    renderUsers();
+    renderMyOrgData();
 });

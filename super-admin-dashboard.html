@@ -3,40 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Super-Admin Dashboard</title>
+    <title>Super Admin Dashboard</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header class="main-header">
         <nav class="main-nav">
-            <h1 class="logo">Super-Admin Paneel</h1>
+            <h1 class="logo">Super Admin</h1>
             <ul>
-                <li><a href="#" class="active">Nieuwe Organisatie</a></li>
+                <li><a href="#" class="active" data-section="organizations">Organisaties Beheren</a></li>
+                <li><a href="#" data-section="module-overview">Overzicht Modulegebruik</a></li>
+                <li><a href="#" data-section="organization-data">Organisatiegegevens</a></li>
+                <li><a href="#" data-section="system-settings">Systeeminstellingen</a></li>
                 <li><a href="#" id="logout-btn">Uitloggen</a></li>
             </ul>
         </nav>
     </header>
 
     <main class="dashboard-container">
-        <section id="create-organization-section" class="dashboard-section active">
-            <h2>Nieuwe Organisatie Aanmaken</h2>
-            <form id="create-organization-form" class="dashboard-form">
-                <div class="form-group">
-                    <label for="org-name">Naam organisatie:</label>
-                    <input type="text" id="org-name" required>
+        <section id="organizations" class="dashboard-section active">
+            <h2>Organisaties Beheren</h2>
+            <div class="action-bar">
+                <button id="add-organization-btn" class="btn">Organisatie Toevoegen</button>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Organisatienaam</th>
+                        <th>Admin Naam</th>
+                        <th>Acties</th>
+                    </tr>
+                </thead>
+                <tbody id="organizations-table-body">
+                </tbody>
+            </table>
+        </section>
+
+        <section id="module-overview" class="dashboard-section hidden">
+            <h2>Overzicht Modulegebruik</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Organisatienaam</th>
+                        <th>CSV-import</th>
+                        <th>Zermelo Integratie</th>
+                        <th>Magister Integratie</th>
+                        <th>Huisstijl aanpassen</th>
+                    </tr>
+                </thead>
+                <tbody id="module-overview-table-body">
+                </tbody>
+            </table>
+        </section>
+
+        <section id="organization-data" class="dashboard-section hidden">
+            <h2>Organisatiegegevens</h2>
+            <div class="action-bar">
+                <select id="select-organization">
+                    <option value="">Selecteer een organisatie</option>
+                </select>
+                <button id="view-org-data-btn" class="btn" disabled>Gegevens Inzien</button>
+            </div>
+            <div id="organization-details" class="details-card hidden">
+                <h3>Details van <span id="org-details-name"></span></h3>
+                <form id="org-data-form">
+                    <div class="form-group">
+                        <label for="org-contact-person">Contactpersoon:</label>
+                        <input type="text" id="org-contact-person" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="org-phone">Telefoonnummer:</label>
+                        <input type="text" id="org-phone" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="org-address">Adres:</label>
+                        <input type="text" id="org-address" readonly>
+                    </div>
+                    <h4>Contract & Financiën</h4>
+                    <div class="form-group">
+                        <label for="org-contract-file">Contractbestand:</label>
+                        <a id="org-contract-link" href="#" target="_blank" class="hidden">Contract downloaden</a>
+                        <input type="file" id="org-contract-file">
+                    </div>
+                    <div class="form-group">
+                        <label for="org-invoice-status">Laatste Factuurstatus:</label>
+                        <input type="text" id="org-invoice-status" readonly>
+                    </div>
+                    <button type="button" id="edit-org-data-btn" class="btn">Bewerken</button>
+                    <button type="submit" id="save-org-data-btn" class="btn hidden">Opslaan</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="system-settings" class="dashboard-section hidden">
+            <h2>Systeeminstellingen</h2>
+            <div class="settings-grid">
+                <div class="setting-card">
+                    <h3>E-mailinstellingen</h3>
+                    <form id="email-settings-form">
+                        <div class="form-group">
+                            <label for="smtp-server">SMTP-server:</label>
+                            <input type="text" id="smtp-server" placeholder="smtp.voorbeeld.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="smtp-port">Poort:</label>
+                            <input type="number" id="smtp-port" placeholder="587">
+                        </div>
+                        <div class="form-group">
+                            <label for="smtp-user">Gebruikersnaam:</label>
+                            <input type="text" id="smtp-user">
+                        </div>
+                        <div class="form-group">
+                            <label for="smtp-pass">Wachtwoord:</label>
+                            <input type="password" id="smtp-pass">
+                        </div>
+                        <button type="submit" class="btn">Opslaan</button>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label for="admin-email">E-mail van eerste beheerder:</label>
-                    <input type="email" id="admin-email" required>
+                <div class="setting-card">
+                    <h3>Betalingsinstellingen</h3>
+                    <form id="payment-settings-form">
+                        <div class="form-group">
+                            <label for="payment-api-key">API-sleutel:</label>
+                            <input type="text" id="payment-api-key">
+                        </div>
+                        <div class="form-group">
+                            <label for="payment-secret">Secret sleutel:</label>
+                            <input type="password" id="payment-secret">
+                        </div>
+                        <button type="submit" class="btn">Opslaan</button>
+                    </form>
                 </div>
-                <button type="submit" class="btn btn-primary">Organisatie Aanmaken</button>
-                <button type="button" id="undo-org-btn" class="btn btn-secondary hidden">Ongedaan maken</button>
-            </form>
+            </div>
         </section>
     </main>
-    
+
+    <div id="organization-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3 id="modal-title">Nieuwe Organisatie Aanmaken</h3>
+            <form id="organization-form">
+                <input type="hidden" id="org-id">
+                <div class="form-group">
+                    <label for="organization-name">Organisatienaam:</label>
+                    <input type="text" id="organization-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="admin-username">Admin Gebruikersnaam:</label>
+                    <input type="text" id="admin-username" required>
+                </div>
+                <div class="form-group">
+                    <label for="admin-password">Admin Wachtwoord:</label>
+                    <input type="password" id="admin-password" required>
+                </div>
+                <div class="module-permissions-group">
+                    <h4>Rechten toewijzen:</h4>
+                    <div class="permission-item">
+                        <label for="permission-csv">CSV-import</label>
+                        <input type="checkbox" id="permission-csv" name="permissions" value="csv">
+                    </div>
+                    <div class="permission-item">
+                        <label for="permission-zermelo">Zermelo Integratie</label>
+                        <input type="checkbox" id="permission-zermelo" name="permissions" value="zermelo">
+                    </div>
+                    <div class="permission-item">
+                        <label for="permission-magister">Magister Integratie</label>
+                        <input type="checkbox" id="permission-magister" name="permissions" value="magister">
+                    </div>
+                    <div class="permission-item">
+                        <label for="permission-style">Huisstijl aanpassen</label>
+                        <input type="checkbox" id="permission-style" name="permissions" value="style">
+                    </div>
+                </div>
+                <button type="submit" class="btn">Opslaan</button>
+            </form>
+        </div>
+    </div>
+
     <footer>
-        <p>&copy; 2025 Jouw Platform. Alle rechten voorbehouden.</p>
+        <p>&copy; 2025 Jouw Website. Alle rechten voorbehouden.</p>
     </footer>
 
     <script src="super-admin-script.js"></script>

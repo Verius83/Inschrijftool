@@ -1,5 +1,7 @@
-Rol			Gebruikersnaam		Wachtwoord
-Super-Admin		admin			superadmin
-Admin			organisatie-admin	password
-Coördinator		coordinator		password
-Leerling		leerling		password
+Super-Admin: gebruikersnaam: superadmin, wachtwoord: admin123
+
+Admin: gebruikersnaam: admin, wachtwoord: admin123
+
+Coördinator: gebruikersnaam: coordinator, wachtwoord: coord123
+
+Leerling: gebruikersnaam: leerling, wachtwoord: admin123
